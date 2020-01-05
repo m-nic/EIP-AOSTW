@@ -37,10 +37,11 @@ public class ContactsIntegrationBuilder extends RouteBuilder {
     }
 
     private void serveClient(String publicUri, String realHost, String clientUri) {
-        from("jetty:" + publicUri + "/ui?matchOnUriPrefix=true")
+        from("jetty:" + publicUri + "ui?matchOnUriPrefix=true")
                 .process((exchange) -> {
                     Message in = exchange.getIn();
-                    exchange.getIn().setHeader("reqAsset", in.getHeader(Exchange.HTTP_URI, String.class));
+                    String reqAsset = in.getHeader(Exchange.HTTP_URI, String.class);
+                    exchange.getIn().setHeader("reqAsset", reqAsset);
                 })
                 .toD(realHost + "${header.reqAsset}?throwExceptionOnFailure=false&bridgeEndpoint=true");
 

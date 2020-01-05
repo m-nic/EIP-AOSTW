@@ -50,6 +50,7 @@ public class ContactsSoapToRest {
                     Message in = exchange.getIn();
 
                     HashMap body = this.extractSoapPayload(in.getBody(String.class), new String[]{"env:Envelope", "env:Body"});
+                    String payload = this.prepareRestPayload(body);
 
                     String restHttpMethod = in.getHeader("restHttpMethod", String.class);
                     String restHttpPath = this.prepareRestPath(in.getHeader("restHttpPath", String.class), body);
@@ -58,9 +59,11 @@ public class ContactsSoapToRest {
                     in.setHeader("restHttpPath", restHttpPath);
                     in.setHeader(Exchange.HTTP_METHOD, restHttpMethod);
                     in.setHeader(Exchange.CONTENT_TYPE, "application/json");
+                    in.setHeader("httpARGS", payload);
 
-                    in.setBody(this.prepareRestPayload(body));
+                    in.setBody(payload);
                 })
+                .log("Update REST M: ${header.CamelHttpMethod} P: ${header.restHttpPath} ARG: ${header.httpARGS}")
                 .toD(restServer + "${header.restHttpPath}?throwExceptionOnFailure=false&bridgeEndpoint=true")
                 .end();
     }

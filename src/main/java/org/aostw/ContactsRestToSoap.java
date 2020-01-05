@@ -44,6 +44,7 @@ public class ContactsRestToSoap {
                 })
                 .choice()
                 .when(this.builder.header("mutationMethod").isNotNull())
+                .log("Update SOAP M: ${header.mutationMethod} ARG: ${header.mutationArgs}")
                 .process((Exchange exchange) -> {
                     Message in = exchange.getIn();
 

@@ -2,7 +2,7 @@
 <env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="${namespace}">
     <env:Header/>
     <env:Body>
-        <ns1:${method}>
+        <ns1:editUser>
             <id>${args.0}</id>
             <newData>
                 <item>
@@ -22,6 +22,6 @@
                     <value>${json.newData.phone}</value>
                 </item>
             </newData>
-        </ns1:${method}>
+        </ns1:editUser>
     </env:Body>
 </env:Envelope>
