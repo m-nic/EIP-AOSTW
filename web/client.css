@@ -1,0 +1,26 @@
+.switcher {
+    display:none;
+}
+
+body {
+    padding-top: 20px;
+}
+
+.soap-client-demo {
+    background: #f9d1ae;
+}
+
+.soap-client-demo .app-block * {
+    border-radius: 0;
+    font-family: monospace;
+    text-transform: uppercase;
+}
+
+.soap-client-demo .requests-block * {
+    border-radius: 0;
+    font-family: monospace;
+}
+
+.rest-client-demo {
+    background: #e4f5ed;
+}
