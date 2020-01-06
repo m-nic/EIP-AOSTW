@@ -51,6 +51,9 @@ public class ContactsIntegrationBuilder extends RouteBuilder {
                 .process((exchange) -> {
                     String body = exchange.getIn().getBody(String.class);
                     body = body.replace("</body>", "<style>" + Helpers.getClientStyle() + "</style></body>");
+
+                    // Keep Session ID for client
+                    exchange.getOut().setHeader("Set-Cookie", exchange.getIn().getHeader("Set-Cookie"));
                     exchange.getOut().setBody(body);
                 });
     }
